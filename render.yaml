@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: djadwal-v2
+    runtime: node
+    plan: free
+    buildCommand: pnpm install && pnpm prisma generate && pnpm build
+    startCommand: pnpm start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: djadwal-db
+          property: connectionString
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+      - key: NEXTAUTH_URL
+        value: https://djadwal-v2.onrender.com # Update this after first deployment
+      - key: NODE_VERSION
+        value: 22.14.0
+      - key: PNPM_VERSION
+        value: 10.33.2
+      - key: NEXT_PUBLIC_APP_NAME
+        value: "جدول"
+      - key: NEXT_PUBLIC_APP_VERSION
+        value: "2.0.0"
+
+databases:
+  - name: djadwal-db
+    plan: free
