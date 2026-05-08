@@ -1,0 +1,1 @@
+export function FormModal() { return <div>نموذج</div> }

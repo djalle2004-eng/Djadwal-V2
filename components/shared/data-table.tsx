@@ -1,0 +1,1 @@
+export function DataTable() { return <div>جدول البيانات</div> }

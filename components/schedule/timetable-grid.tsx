@@ -1,0 +1,1 @@
+export function TimetableGrid() { return <div>جدول المواعيد</div> }

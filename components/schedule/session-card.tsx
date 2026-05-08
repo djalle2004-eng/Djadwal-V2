@@ -1,0 +1,1 @@
+export function SessionCard() { return <div>حصة</div> }
