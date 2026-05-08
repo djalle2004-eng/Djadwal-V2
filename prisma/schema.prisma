@@ -23,6 +23,7 @@ enum Role {
   ADMIN
   USER
   PROFESSOR
+  SCHEDULE_MANAGER
 }
 
 model Department {
@@ -72,7 +73,7 @@ model Course {
 
 model Room {
   id            String         @id @default(cuid())
-  name          String         @unique
+  name          String
   capacity      Int
   type          String?
   assignments   Assignment[]
@@ -83,7 +84,7 @@ model Room {
 
 model Group {
   id               String          @id @default(cuid())
-  name             String          @unique
+  name             String
   size             Int
   departmentId     String?
   department       Department?     @relation(fields: [departmentId], references: [id])

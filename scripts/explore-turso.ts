@@ -18,7 +18,7 @@ async function explore() {
     console.log("Tables found:", tableNames.join(", "));
 
     for (const tableName of tableNames) {
-      if (tableName.startsWith("_") || tableName === "sqlite_sequence") continue;
+      if (!tableName || tableName.startsWith("_") || tableName === "sqlite_sequence") continue;
       
       console.log(`\n--- Table: ${tableName} ---`);
       const schema = await client.execute(`PRAGMA table_info(${tableName})`);
