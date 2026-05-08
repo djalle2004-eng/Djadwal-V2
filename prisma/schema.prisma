@@ -25,41 +25,74 @@ enum Role {
   PROFESSOR
 }
 
+model Department {
+  id              String           @id @default(cuid())
+  name            String           @unique
+  specializations Specialization[]
+  professors      Professor[]
+  groups          Group[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model Specialization {
+  id           String     @id @default(cuid())
+  name         String
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+  groups       Group[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
 model Professor {
-  id        String   @id @default(cuid())
-  name      String
-  email     String?  @unique
-  phone     String?
-  department String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String       @id @default(cuid())
+  name         String
+  email        String?      @unique
+  phone        String?
+  departmentId String?
+  department   Department?  @relation(fields: [departmentId], references: [id])
+  assignments  Assignment[]
+  extraSessions ExtraSession[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 }
 
 model Course {
-  id          String   @id @default(cuid())
-  name        String
-  code        String   @unique
-  credits     Int?
-  description String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String         @id @default(cuid())
+  name          String
+  code          String         @unique
+  credits       Int?
+  description   String?
+  assignments   Assignment[]
+  extraSessions ExtraSession[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model Room {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  capacity  Int
-  type      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String         @id @default(cuid())
+  name          String         @unique
+  capacity      Int
+  type          String?
+  assignments   Assignment[]
+  extraSessions ExtraSession[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model Group {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  size      Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String          @id @default(cuid())
+  name             String          @unique
+  size             Int
+  departmentId     String?
+  department       Department?     @relation(fields: [departmentId], references: [id])
+  specializationId String?
+  specialization   Specialization? @relation(fields: [specializationId], references: [id])
+  assignments      Assignment[]
+  extraSessions    ExtraSession[]
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
 }
 
 model AcademicYear {
@@ -69,3 +102,49 @@ model AcademicYear {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Assignment {
+  id             String    @id @default(cuid())
+  groupId        String?
+  group          Group?    @relation(fields: [groupId], references: [id])
+  courseId       String
+  course         Course    @relation(fields: [courseId], references: [id])
+  professorId    String
+  professor      Professor @relation(fields: [professorId], references: [id])
+  roomId         String
+  room           Room      @relation(fields: [roomId], references: [id])
+  dayOfWeek      Int
+  startTime      String
+  endTime        String
+  sessionType    String?   @default("lecture")
+  academicYear   String?
+  semester       String?
+  specialization String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model ExtraSession {
+  id             String    @id @default(cuid())
+  groupId        String?
+  group          Group?    @relation(fields: [groupId], references: [id])
+  courseId       String
+  course         Course    @relation(fields: [courseId], references: [id])
+  professorId    String
+  professor      Professor @relation(fields: [professorId], references: [id])
+  roomId         String
+  room           Room      @relation(fields: [roomId], references: [id])
+  sessionDate    String
+  startTime      String
+  endTime        String
+  description    String?
+  sessionType    String?
+  academicYear   String?
+  semester       String?
+  reason         String?
+  isArchived     Boolean   @default(false)
+  examNote       String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+

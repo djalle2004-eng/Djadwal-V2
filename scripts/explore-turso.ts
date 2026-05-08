@@ -14,11 +14,10 @@ async function explore() {
   try {
     // Get all tables
     const tables = await client.execute("SELECT name FROM sqlite_master WHERE type='table'");
-    console.log("Tables found:");
-    console.table(tables.rows);
+    const tableNames = tables.rows.map(r => r.name);
+    console.log("Tables found:", tableNames.join(", "));
 
-    for (const row of tables.rows) {
-      const tableName = row.name as string;
+    for (const tableName of tableNames) {
       if (tableName.startsWith("_") || tableName === "sqlite_sequence") continue;
       
       console.log(`\n--- Table: ${tableName} ---`);
