@@ -14,6 +14,7 @@ import React from "react";
 
 export function Breadcrumb() {
   const pathname = usePathname();
+  const paths = pathname.split("/").filter(Boolean);
   const routeMap: { [key: string]: string } = {
     dashboard: "لوحة التحكم",
     professors: "الأساتذة",
