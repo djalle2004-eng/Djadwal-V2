@@ -1,4 +1,4 @@
-import { PrismaClient, UserRole, Permission, DayOfWeek } from '@prisma/client';
+import { PrismaClient, Role, Permission, DayOfWeek } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -13,7 +13,7 @@ async function main() {
       email: 'admin@djadwal.com',
       name: 'System Admin',
       password: 'admin_password_hash', // Should be hashed in real app
-      role: UserRole.ADMIN,
+      role: Role.ADMIN,
       permission: Permission.ADMIN,
     },
   });
