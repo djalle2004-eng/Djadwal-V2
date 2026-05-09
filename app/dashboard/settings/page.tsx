@@ -1,1 +1,8 @@
-export default function Page() { return (<div className='p-8 text-center'><h1 className='text-2xl font-bold'>??????...</h1><p className='text-slate-500'>??? ?????? ??? ???????</p></div>); }
+export default function SettingsPage() {
+  return (
+    <div className='p-8 text-center' dir="rtl">
+      <h1 className='text-3xl font-black text-slate-800 mb-2'>الإعدادات</h1>
+      <p className='text-slate-500 font-medium'>هذه الصفحة قيد التطوير وسيتم إضافتها قريباً.</p>
+    </div>
+  );
+}
