@@ -11,14 +11,16 @@ export async function GET(req: NextRequest) {
   const professorId  = searchParams.get("professorId");
   const roomId       = searchParams.get("roomId");
   const departmentId = searchParams.get("departmentId");
-  const semesterId   = searchParams.get("semesterId");
+  const semester     = searchParams.get("semester");
+  const academicYear = searchParams.get("academicYear");
 
   // Build dynamic where clause
   const where: any = {};
   if (groupId)      where.groupId      = groupId;
   if (professorId)  where.professorId  = professorId;
   if (roomId)       where.roomId       = roomId;
-  if (semesterId)   where.semester     = semesterId;
+  if (semester)     where.semester     = semester;
+  if (academicYear) where.academicYear = academicYear;
 
   // For department view, find all groups in that department first
   if (departmentId) {

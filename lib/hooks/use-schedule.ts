@@ -6,7 +6,8 @@ import type { ScheduleFilters } from "@/lib/types/schedule";
 
 async function fetchSchedule(filters: Partial<ScheduleFilters> & { entityId?: string }) {
   const params = new URLSearchParams();
-  if (filters.semesterId) params.set("semesterId", filters.semesterId);
+  if (filters.semester) params.set("semester", filters.semester);
+  if (filters.academicYear) params.set("academicYear", filters.academicYear);
   if (filters.entityId) {
     if (filters.viewMode === "group")       params.set("groupId", filters.entityId);
     if (filters.viewMode === "professor")   params.set("professorId", filters.entityId);
@@ -18,9 +19,12 @@ async function fetchSchedule(filters: Partial<ScheduleFilters> & { entityId?: st
   return res.json();
 }
 
-async function fetchConflicts(semesterId?: string) {
-  const params = semesterId ? `?semesterId=${semesterId}` : "";
-  const res = await fetch(`/api/schedule/conflicts${params}`);
+async function fetchConflicts(filters: { semester?: string; academicYear?: string }) {
+  const params = new URLSearchParams();
+  if (filters.semester) params.set("semester", filters.semester);
+  if (filters.academicYear) params.set("academicYear", filters.academicYear);
+  
+  const res = await fetch(`/api/schedule/conflicts?${params.toString()}`);
   if (!res.ok) throw new Error("فشل في فحص الصراعات");
   return res.json();
 }
@@ -62,10 +66,10 @@ export function useSchedule(filters: Partial<ScheduleFilters> & { entityId?: str
   });
 }
 
-export function useConflicts(semesterId?: string) {
+export function useConflicts(filters: { semester?: string; academicYear?: string }) {
   return useQuery({
-    queryKey: ["schedule", "conflicts", semesterId],
-    queryFn: () => fetchConflicts(semesterId),
+    queryKey: ["schedule", "conflicts", filters.semester, filters.academicYear],
+    queryFn: () => fetchConflicts(filters),
   });
 }
 

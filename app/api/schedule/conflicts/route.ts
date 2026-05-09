@@ -7,11 +7,13 @@ export async function GET(req: NextRequest) {
   if (!session) return NextResponse.json({ message: "غير مصرح" }, { status: 401 });
 
   const { searchParams } = new URL(req.url);
-  const semesterId   = searchParams.get("semesterId");
+  const semester     = searchParams.get("semester");
+  const academicYear = searchParams.get("academicYear");
   const departmentId = searchParams.get("departmentId");
 
   const where: any = {};
-  if (semesterId) where.semester = semesterId;
+  if (semester)     where.semester     = semester;
+  if (academicYear) where.academicYear = academicYear;
 
   if (departmentId) {
     const groups = await db.group.findMany({ where: { departmentId }, select: { id: true } });

@@ -30,6 +30,7 @@ interface SchedulePageClientProps {
   rooms: { id: string; name: string }[];
   departments: { id: string; name: string }[];
   semesters: { id: string; name: string }[];
+  academicYears: { id: string; name: string }[];
 }
 
 export function SchedulePageClient({
@@ -38,11 +39,13 @@ export function SchedulePageClient({
   rooms,
   departments,
   semesters,
+  academicYears,
 }: SchedulePageClientProps) {
   const [filters, setFilters] = useState<ScheduleFilters>({
     viewMode: "group",
     entityId: groups[0]?.id || "",
-    semesterId: semesters[0]?.id || "",
+    semester: semesters[0]?.id || "",
+    academicYear: academicYears[0]?.id || "",
     showConflicts: true,
     showEmpty: true,
   });
@@ -51,10 +54,14 @@ export function SchedulePageClient({
   const { data: sessions = [], isLoading } = useSchedule({
     viewMode: filters.viewMode,
     entityId: filters.entityId,
-    semesterId: filters.semesterId,
+    semester: filters.semester,
+    academicYear: filters.academicYear,
   });
 
-  const { data: conflictsData } = useConflicts(filters.semesterId);
+  const { data: conflictsData } = useConflicts({
+    semester: filters.semester,
+    academicYear: filters.academicYear
+  });
   const conflictSessionIds = new Set<string>(
     conflictsData?.conflicts?.flatMap((c: any) => c.sessions) ?? []
   );
@@ -133,11 +140,28 @@ export function SchedulePageClient({
           </SelectContent>
         </Select>
 
+        {/* Academic Year selector */}
+        {academicYears.length > 0 && (
+          <Select
+            value={filters.academicYear || ""}
+            onValueChange={(v: string | null) => setFilters((f) => ({ ...f, academicYear: v || "" }))}
+          >
+            <SelectTrigger className="w-[180px] rounded-xl h-10">
+              <SelectValue placeholder="السنة الدراسية" />
+            </SelectTrigger>
+            <SelectContent className="rounded-2xl">
+              {academicYears.map((y) => (
+                <SelectItem key={y.id} value={y.id}>{y.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+
         {/* Semester selector */}
         {semesters.length > 0 && (
           <Select
-            value={filters.semesterId || ""}
-            onValueChange={(v: string | null) => setFilters((f) => ({ ...f, semesterId: v || "" }))}
+            value={filters.semester || ""}
+            onValueChange={(v: string | null) => setFilters((f) => ({ ...f, semester: v || "" }))}
           >
             <SelectTrigger className="w-[180px] rounded-xl h-10">
               <SelectValue placeholder="الفصل الدراسي" />

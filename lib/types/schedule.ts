@@ -26,7 +26,8 @@ export interface ScheduleSession {
 export interface ScheduleFilters {
   viewMode: ViewMode;
   entityId: string;
-  semesterId?: string;
+  semester?: string;
+  academicYear?: string;
   showConflicts: boolean;
   showEmpty: boolean;
 }
