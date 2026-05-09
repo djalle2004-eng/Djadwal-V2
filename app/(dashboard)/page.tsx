@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { DashboardCharts } from "@/components/dashboard/charts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { 
   Users, 
   BookOpen, 
