@@ -1,0 +1,59 @@
+{
+  "counts": {
+    "academic_years": {
+      "turso": 2,
+      "postgresql": 2,
+      "match": true
+    },
+    "departments": {
+      "turso": 5,
+      "postgresql": 5,
+      "match": true
+    },
+    "specializations": {
+      "turso": 0,
+      "postgresql": 0,
+      "match": true
+    },
+    "groups": {
+      "turso": 154,
+      "postgresql": 154,
+      "match": true
+    },
+    "professors": {
+      "turso": 277,
+      "postgresql": 280,
+      "match": false
+    },
+    "courses": {
+      "turso": 245,
+      "postgresql": 245,
+      "match": true
+    },
+    "rooms": {
+      "turso": 32,
+      "postgresql": 32,
+      "match": true
+    },
+    "assignments": {
+      "turso": 3954,
+      "postgresql": 3954,
+      "match": true
+    },
+    "extra_sessions": {
+      "turso": 474,
+      "postgresql": 474,
+      "match": true
+    },
+    "users": {
+      "turso": 10,
+      "postgresql": 9,
+      "match": false
+    }
+  },
+  "integrity": {
+    "orphanedAssignments": 0,
+    "orphanedExtraSessions": 0
+  },
+  "timestamp": "2026-05-09T00:10:26.111Z"
+}
