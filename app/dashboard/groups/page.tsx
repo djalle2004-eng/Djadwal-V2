@@ -1,1 +1,9 @@
-export default function Page() { return (<div className='p-8 text-center'><h1 className='text-2xl font-bold'>??????...</h1><p className='text-slate-500'>??? ?????? ??? ???????</p></div>); }
+import { GroupsClient } from "@/components/groups/groups-client";
+
+export default function GroupsPage() {
+  return (
+    <div className="p-6 animate-in fade-in duration-500" dir="rtl">
+      <GroupsClient />
+    </div>
+  );
+}

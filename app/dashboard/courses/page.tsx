@@ -1,1 +1,9 @@
-export default function Page() { return (<div className='p-8 text-center'><h1 className='text-2xl font-bold'>??????...</h1><p className='text-slate-500'>??? ?????? ??? ???????</p></div>); }
+import { CoursesClient } from "@/components/courses/courses-client";
+
+export default function CoursesPage() {
+  return (
+    <div className="p-6 animate-in fade-in duration-500" dir="rtl">
+      <CoursesClient />
+    </div>
+  );
+}
