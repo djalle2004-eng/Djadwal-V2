@@ -17,8 +17,7 @@ export const metadata: Metadata = {
   description: "نظام متقدم لإدارة الجداول الدراسية الأكاديمية",
 };
 
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Providers } from "@/components/providers";
 
 export default function RootLayout({
   children,
@@ -30,11 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SidebarProvider defaultOpen={true}>
-          <TooltipProvider>
-            {children}
-          </TooltipProvider>
-        </SidebarProvider>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
