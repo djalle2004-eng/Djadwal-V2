@@ -1,4 +1,4 @@
-import { PrismaClient, Role, Permission, DayOfWeek } from '@prisma/client';
+import { PrismaClient, Role, Permission } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -20,20 +20,20 @@ async function main() {
   console.log('✅ Admin user created/verified');
 
   // 2. Create Current Academic Year
-  const currentYear = await prisma.academicYear.upsert({
-    where: { name: '2024-2025' },
+  const currentYear = await (prisma as any).academicYear.upsert({
+    where: { year: '2024-2025' },
     update: {},
     create: {
-      name: '2024-2025',
+      year: '2024-2025',
       startDate: new Date('2024-09-01'),
       endDate: new Date('2025-07-15'),
-      isCurrent: true,
+      active: true,
     },
   });
   console.log('✅ Academic year created');
 
   // 3. Create Semesters
-  await prisma.semester.upsert({
+  await (prisma as any).semester.upsert({
     where: { id: '00000000-0000-0000-0000-000000000001' },
     update: {},
     create: {
@@ -46,7 +46,7 @@ async function main() {
     },
   });
 
-  await prisma.semester.upsert({
+  await (prisma as any).semester.upsert({
     where: { id: '00000000-0000-0000-0000-000000000002' },
     update: {},
     create: {
@@ -61,7 +61,7 @@ async function main() {
   console.log('✅ Semesters created');
 
   // 4. Create default Print Settings
-  await prisma.printSettings.create({
+  await (prisma as any).printSettings.create({
     data: {
       universityName: 'University Name',
       facultyName: 'Faculty Name',
