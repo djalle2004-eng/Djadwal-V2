@@ -45,7 +45,7 @@ export default function SettingsPage() {
         {
           title: "إدارة المستخدمين",
           description: "التحكم في الصلاحيات، الأدوار، والوصول إلى لوحة التحكم.",
-          href: "#",
+          href: "/dashboard/settings/users",
           icon: <Users className="h-6 w-6 text-orange-600" />,
           color: "bg-orange-50"
         }
