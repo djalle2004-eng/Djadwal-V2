@@ -118,7 +118,7 @@ export function UsersClient({ users: initialUsers }: { users: User[] }) {
                     <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
                   </div>
                 ) : (
-                  <Select value={user.role} onValueChange={(val) => val && handleRoleChange(user.id, val)}>
+                  <Select value={user.role} onValueChange={(val: string | null) => val && handleRoleChange(user.id, val)}>
                     <SelectTrigger className="h-9 rounded-xl text-xs border-slate-200 bg-slate-50">
                       <div className="flex items-center gap-2">
                         <Shield className="h-3 w-3 text-slate-400" />
