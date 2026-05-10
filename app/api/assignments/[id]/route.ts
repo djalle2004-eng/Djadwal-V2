@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import db from "@/lib/db";
-import { auth } from "@/auth";
+import { checkPermission } from "@/lib/api-auth";
 
 const assignmentSchema = z.object({
   courseId: z.string().min(1).optional(),
@@ -18,8 +18,8 @@ const assignmentSchema = z.object({
 });
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  const { error } = await checkPermission("WRITE");
+  if (error) return error;
 
   const { id } = await params;
 
@@ -48,8 +48,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  const { error } = await checkPermission("DELETE");
+  if (error) return error;
 
   const { id } = await params;
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import db from "@/lib/db";
-import { auth } from "@/auth";
+import { checkPermission } from "@/lib/api-auth";
 
 const assignmentSchema = z.object({
   courseId: z.string().min(1, "المادة مطلوبة"),
@@ -18,8 +18,8 @@ const assignmentSchema = z.object({
 });
 
 export async function GET(req: NextRequest) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  const { error } = await checkPermission("READ");
+  if (error) return error;
 
   const { searchParams } = new URL(req.url);
   const specialization = searchParams.get("specialization");
@@ -51,8 +51,8 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  const { error } = await checkPermission("WRITE");
+  if (error) return error;
 
   try {
     const body = await req.json();
