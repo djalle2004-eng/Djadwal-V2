@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "migrate:from-turso": "tsx scripts/migrate-from-turso.ts",
     "migrate:verify": "tsx scripts/verify-migration.ts",
     "db:push": "prisma db push",
@@ -58,7 +60,8 @@
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^2.1.9"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
