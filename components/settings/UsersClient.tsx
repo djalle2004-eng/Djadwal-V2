@@ -11,8 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Shield, UserCheck, UserX, Loader2 } from "lucide-react";
+import { Shield, UserCheck, UserX, Loader2, UserPlus } from "lucide-react";
 import { toast } from "sonner";
+import { UserForm } from "./UserForm";
 
 const ROLE_COLORS: Record<string, string> = {
   ADMIN:            "bg-red-100 text-red-700 border-red-200",
@@ -36,6 +37,7 @@ interface User {
 export function UsersClient({ users: initialUsers }: { users: User[] }) {
   const [users, setUsers] = useState(initialUsers);
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const handleRoleChange = async (userId: string, newRole: string) => {
     setLoadingId(userId);
@@ -74,8 +76,19 @@ export function UsersClient({ users: initialUsers }: { users: User[] }) {
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
-      {/* Stats bar */}
+    <div className="space-y-6">
+      <div className="flex justify-end">
+        <Button 
+          onClick={() => setIsAddModalOpen(true)}
+          className="bg-slate-900 hover:bg-slate-800 text-white gap-2 h-11 px-6 rounded-2xl font-bold shadow-lg shadow-slate-200"
+        >
+          <UserPlus className="h-5 w-5" />
+          إضافة مستخدم جديد
+        </Button>
+      </div>
+
+      <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
+        {/* Stats bar */}
       <div className="grid grid-cols-3 border-b border-slate-100 divide-x divide-slate-100">
         {[
           { label: "إجمالي المستخدمين", value: users.length, color: "text-slate-900" },
@@ -155,6 +168,12 @@ export function UsersClient({ users: initialUsers }: { users: User[] }) {
           );
         })}
       </div>
+
+      <UserForm 
+        open={isAddModalOpen} 
+        onOpenChange={setIsAddModalOpen} 
+        onSuccess={(newUser) => setUsers(prev => [newUser, ...prev])}
+      />
     </div>
   );
 }
