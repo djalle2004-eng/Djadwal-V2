@@ -1,6 +1,6 @@
 import { withRole } from "@/components/auth/withRole";
 import db from "@/lib/db";
-import { UsersClient } from "@/components/settings/UsersClient";
+import { UsersClient } from "../../../../components/settings/UsersClient";
 
 export const metadata = {
   title: "إدارة المستخدمين | Djadwal",
