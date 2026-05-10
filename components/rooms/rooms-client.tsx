@@ -29,7 +29,8 @@ import {
   Trash2,
   Loader2,
   Monitor,
-  Projector
+  Projector,
+  FileSpreadsheet,
 } from "lucide-react";
 import { useRooms, useDeleteRoom } from "@/lib/hooks/use-rooms";
 import { RoomForm } from "@/components/rooms/room-form";
@@ -176,13 +177,23 @@ export function RoomsClient() {
             {isFetching && <span className="text-indigo-500 mr-2 text-xs">جاري التحديث...</span>}
           </p>
         </div>
-        <Button
-          onClick={() => { setEditingRoom(null); setFormOpen(true); }}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white gap-2 px-6 h-12 rounded-2xl shadow-lg shadow-indigo-100 font-black"
-        >
-          <Plus className="h-5 w-5" />
-          إضافة قاعة جديدة
-        </Button>
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            onClick={() => window.open("/api/export/excel/rooms", "_blank")}
+            className="rounded-2xl h-12 gap-2 border-slate-200 text-slate-600 font-black shadow-sm bg-white"
+          >
+            <FileSpreadsheet className="h-5 w-5 text-emerald-600" />
+            تصدير Excel
+          </Button>
+          <Button
+            onClick={() => { setEditingRoom(null); setFormOpen(true); }}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white gap-2 px-6 h-12 rounded-2xl shadow-lg shadow-indigo-100 font-black"
+          >
+            <Plus className="h-5 w-5" />
+            إضافة قاعة جديدة
+          </Button>
+        </div>
       </div>
 
       <div className="bg-white rounded-3xl p-4 shadow-sm border border-slate-100 mb-6 flex flex-wrap gap-4">

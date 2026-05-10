@@ -30,6 +30,7 @@ import {
   Eye,
   AlertTriangle,
   Loader2,
+  FileSpreadsheet,
 } from "lucide-react";
 import { useProfessors, useDeleteProfessor } from "@/lib/hooks/use-professors";
 import { ProfessorForm } from "@/components/professors/professor-form";
@@ -200,13 +201,23 @@ export function ProfessorsClient({ departments }: ProfessorsClientProps) {
             {isFetching && <span className="text-blue-500 mr-2 text-xs">جاري التحديث...</span>}
           </p>
         </div>
-        <Button
-          onClick={() => { setEditingProfessor(null); setFormOpen(true); }}
-          className="bg-blue-600 hover:bg-blue-700 text-white gap-2 px-6 h-12 rounded-2xl shadow-lg shadow-blue-100 font-black"
-        >
-          <Plus className="h-5 w-5" />
-          إضافة أستاذ جديد
-        </Button>
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            onClick={() => window.open(`/api/export/excel/professors?departmentId=${departmentFilter}`, "_blank")}
+            className="rounded-2xl h-12 gap-2 border-slate-200 text-slate-600 font-black shadow-sm bg-white"
+          >
+            <FileSpreadsheet className="h-5 w-5 text-emerald-600" />
+            تصدير Excel
+          </Button>
+          <Button
+            onClick={() => { setEditingProfessor(null); setFormOpen(true); }}
+            className="bg-blue-600 hover:bg-blue-700 text-white gap-2 px-6 h-12 rounded-2xl shadow-lg shadow-blue-100 font-black"
+          >
+            <Plus className="h-5 w-5" />
+            إضافة أستاذ جديد
+          </Button>
+        </div>
       </div>
 
       {/* Filters */}
