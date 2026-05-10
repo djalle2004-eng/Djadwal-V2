@@ -168,12 +168,13 @@ export function UsersClient({ users: initialUsers }: { users: User[] }) {
           );
         })}
       </div>
+    </div>
 
-      <UserForm 
-        open={isAddModalOpen} 
-        onOpenChange={setIsAddModalOpen} 
-        onSuccess={(newUser) => setUsers(prev => [newUser, ...prev])}
-      />
+    <UserForm 
+      open={isAddModalOpen} 
+      onOpenChange={setIsAddModalOpen} 
+      onSuccess={(newUser) => setUsers(prev => [newUser, ...prev])}
+    />
     </div>
   );
 }

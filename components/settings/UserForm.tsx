@@ -96,7 +96,7 @@ export function UserForm({ open, onOpenChange, onSuccess }: UserFormProps) {
             <FormField
               control={form.control}
               name="name"
-              render={({ field }) => (
+              render={({ field }: { field: any }) => (
                 <FormItem className="space-y-1">
                   <FormLabel>الاسم الكامل</FormLabel>
                   <FormControl>
@@ -110,7 +110,7 @@ export function UserForm({ open, onOpenChange, onSuccess }: UserFormProps) {
             <FormField
               control={form.control}
               name="email"
-              render={({ field }) => (
+              render={({ field }: { field: any }) => (
                 <FormItem className="space-y-1">
                   <FormLabel>البريد الإلكتروني</FormLabel>
                   <FormControl>
@@ -124,7 +124,7 @@ export function UserForm({ open, onOpenChange, onSuccess }: UserFormProps) {
             <FormField
               control={form.control}
               name="password"
-              render={({ field }) => (
+              render={({ field }: { field: any }) => (
                 <FormItem className="space-y-1">
                   <FormLabel>كلمة المرور</FormLabel>
                   <FormControl>
@@ -138,7 +138,7 @@ export function UserForm({ open, onOpenChange, onSuccess }: UserFormProps) {
             <FormField
               control={form.control}
               name="role"
-              render={({ field }) => (
+              render={({ field }: { field: any }) => (
                 <FormItem className="space-y-1">
                   <FormLabel>دور المستخدم</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
